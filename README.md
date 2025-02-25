@@ -1,4 +1,4 @@
-# SocketTest
+# Igal's Quiz - Angular Client
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
 
