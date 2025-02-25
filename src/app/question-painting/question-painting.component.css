@@ -1,0 +1,64 @@
+@import url("../app.component.css");
+
+.svg-circleplus { height: 16px; stroke: red; }
+
+.app-container {
+    display: block;
+  }
+
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between; /* Keeps groups spaced out */
+    align-items: center; /* Aligns buttons vertically */
+    width: 100%; /* Ensures full width */
+    padding: 10px; /* Adds some spacing around */
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    gap: 10px; /* Adds spacing between groups */
+  }
+  
+  .group {
+    display: flex;
+    gap: 10px;
+  }
+  
+
+  @media (max-width: 600px) {
+    .button-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .group {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+  
+  
+  .cool-button {
+    margin-top: 30px;
+    padding: 12px 24px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin: 10px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    color: white;
+  }
+
+  .progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: rgb(221, 221, 221);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: rgb(236, 21, 21);
+    transition: width 0.1s linear;
+  }

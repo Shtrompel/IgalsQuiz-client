@@ -1,0 +1,15 @@
+@import url("../app.component.css");
+
+
+.title-text
+{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+  border: 3px solid green;
+}
+
+.texthighlight {
+  color: red; /* Example styling */
+}

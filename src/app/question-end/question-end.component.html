@@ -1,0 +1,38 @@
+<div class="app-container" [ngStyle]="{'background-color': backgroundColor}">
+
+    <h1> {{messageTop}} </h1>
+
+    <div class="answer-marker">
+        <svg *ngIf="validityState === 'Right'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon">
+          <path d="M20.285 6.445L9 18 3.715 12.715 l1.415-1.415L9 15.172l9.87-9.87z"/>
+        </svg>
+        <svg *ngIf="validityState === 'Partially Right'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon">
+          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-1-15l-4 4h3v4h2v-4h3l-4-4z"/>
+        </svg>
+        <svg *ngIf="validityState === 'Wrong'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon">
+          <path d="M19.5 5.71L 13.41 12 l6.3 6.29-1.42 1.42L12 13.41 l -6.29 6.3-1.42-1.42L10.59 12 4.3 5.71l1.42-1.42L12 10.59l6.29-6.3z"/>
+        </svg>
+      </div>
+
+      <br/>
+
+      <b> {{msgRightAnswer}} </b>
+
+      <br/>
+      <br/>
+
+      <p>
+      <b> You gained </b>
+      <b class="texthighlight"> {{msgPoints}} </b>
+      <b> points! Now you have </b>
+      <b class="texthighlight"> {{msgTotalPoints}} </b>
+      <b> points. </b>
+      <br/>
+      <b> You are currently at </b>
+      <b class="texthighlight">{{msgLevel}}</b>
+      <b> place. </b>
+      </p>
+
+      
+
+</div>

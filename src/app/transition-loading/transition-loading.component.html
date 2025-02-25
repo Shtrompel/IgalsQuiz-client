@@ -1,0 +1,12 @@
+<div class="app-container" >
+    <p [innerHTML]="this.text"></p>
+
+    <br/>
+
+    <div class="spinner">
+        <div [hidden]="!showTimer" class="spinner-text"> {{timeLeft}} </div>
+    </div>
+
+    <p [hidden]="showTimer" class="loading"></p>
+
+</div>

@@ -1,0 +1,42 @@
+<div class="app-container-big">
+
+    <h1 class="title-text" [textContent]="titleText">asdasd</h1>
+
+    <!-- Grid for the answer choices -->
+    <div [ngStyle]="gridStyle">
+        <div 
+            *ngFor="let choice of choices; let i = index" 
+            class="choice-container"
+            [ngStyle]="getAlignment(i)"
+            >
+
+            <button 
+                #choiceButton 
+                class="choice-button" 
+                [ngStyle]="{
+                    'background-image': images[i] ? 'url(' + images[i] + ')' : 'none',
+                    'background-size': 'cover',
+                    'background-position': 'center'
+                    }"
+                (mouseenter)="onMouseEnter(choiceButton, i)"
+                (mouseleave)="onMouseLeave(choiceButton, i)"
+                (click)="onMouseClick(choiceButton, i)"
+            >
+                
+                <p class="button-text">{{ choice }}</p>
+            </button>
+         </div>
+    </div>
+
+    <button
+    #sendButton 
+    *ngIf="isMultiChoice"
+    (click)="sendAnswer()"
+    > Send Answer </button>
+
+     <!-- Progress Bar -->
+     <div class="progress-container" *ngIf="this.timeLimit !== -1">
+        <div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }"></div>
+    </div>
+
+  </div>

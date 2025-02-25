@@ -1,0 +1,36 @@
+
+<div class="app-container">
+
+  <h1 class="title-text" [textContent]="titleText"></h1>
+
+  <div cdkDropList class="choices-list" (cdkDropListDropped)="this.drop($event)">
+    <div 
+      *ngFor="let choice of choices; let i = index"
+      class="choices-box" 
+      cdkDrag
+      [ngStyle]="{
+        'background-color': 'rgb(' + this.colors[i][0] + ', '  + this.colors[i][1] + ', '  + this.colors[i][2] + ')' ,
+        'background-image': images[i] ? 'url(' + images[i] + ')' : 'none',
+        'background-size': 'cover',
+        'background-position': 'center'
+      }"
+    >
+      {{ choice }}
+    </div>
+  </div>
+  
+  
+  
+  
+  <button
+  #sendButton 
+  (click)="sendAnswer()"
+  > Send Answer </button>
+
+   <!-- Progress Bar -->
+   <div class="progress-container" *ngIf="this.timeLimit !== -1">
+      <div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }"></div>
+  </div>
+
+
+</div>

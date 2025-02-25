@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SocketTest": {
+    "IgalsQuiz": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/socket-test",
+            "outputPath": "dist/igals-quiz",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "SocketTest:build:production"
+              "buildTarget": "IgalsQuiz:build:production"
             },
             "development": {
-              "buildTarget": "SocketTest:build:development"
+              "buildTarget": "IgalsQuiz:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +97,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+            ]
           }
         }
       }

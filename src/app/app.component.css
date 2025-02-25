@@ -1,0 +1,51 @@
+
+html, body {
+  overscroll-behavior: none;
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Centered window styling */
+  .app-container {
+    position: fixed;           /* Keeps the window in the same position on screen */
+    top: 50%;                  /* Moves the top of the window to the center */
+    left: 50%;                 /* Moves the left of the window to the center */
+    transform: translate(-50%, -50%); /* Shifts it back to perfectly center it */
+    background-color: var(--app-bg-color, #61b028);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(49, 106, 11, 0.2);
+    max-width: 90%;            /* Limits the width on larger screens */
+    max-height: 90%;           /* Limits the height on smaller screens */
+    text-align: center;
+    overflow: hidden;            /* Allows scrolling if content overflows */
+
+    display: flex;                /* Enables flexbox */
+    justify-content: center;      /* Centers horizontally */
+    align-items: center;          /* Centers vertically */
+    flex-direction: column;
+  }
+
+  .app-container-big {
+    position: fixed;           /* Keeps the window in the same position on screen */
+    top: 50%;                  /* Moves the top of the window to the center */
+    left: 50%;                 /* Moves the left of the window to the center */
+    transform: translate(-50%, -50%); /* Shifts it back to perfectly center it */
+    background-color: #61b028;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(49, 106, 11, 0.2);
+    min-width: 80%;
+    min-height: 80%;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
+    overflow: hidden;
+  }
