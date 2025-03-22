@@ -19,6 +19,10 @@ import { GameEndComponent } from './game-end/game-end.component';
 import { QuestionMinigameWiresComponent } from './question-minigame-wires/question-minigame-wires.component';
 import { QuestionOrderComponent } from './question-order/question-order.component';
 import { QuestionPaintingComponent } from './question-painting/question-painting.component';
+import { QuestionHorrorGameComponent } from './question-horror-game/question-horror-game.component';
+import { provideHttpClient } from '@angular/common/http';
+import { QuestionMinigameBallsComponent } from './question-minigame-balls/question-minigame-balls.component';
+import { QuestionMatchPairComponent } from './question-match-pair/question-match-pair.component';
 
 
 @NgModule({
@@ -32,7 +36,10 @@ import { QuestionPaintingComponent } from './question-painting/question-painting
     GameEndComponent,
     QuestionMinigameWiresComponent,
     QuestionOrderComponent,
-    QuestionPaintingComponent
+    QuestionPaintingComponent,
+    QuestionHorrorGameComponent,
+    QuestionMinigameBallsComponent,
+    QuestionMatchPairComponent
   ],
   imports: [
     RouterModule,
@@ -41,10 +48,11 @@ import { QuestionPaintingComponent } from './question-painting/question-painting
     FormsModule,
     DragDropModule,
     CdkTableModule, 
-    CdkTreeModule
+    CdkTreeModule,
+    DragDropModule
   ],
   exports: [RouterModule,],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

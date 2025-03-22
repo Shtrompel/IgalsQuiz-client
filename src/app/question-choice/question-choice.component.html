@@ -1,9 +1,10 @@
-<div class="app-container-big">
 
-    <h1 class="title-text" [textContent]="titleText">asdasd</h1>
+<div class="app-container-big" #appContainerBig [ngStyle]="{ direction: isRtl ? 'rtl' : 'ltr' }">
+
+    <h1 class="title-text" #titleElement [textContent]="titleText" dir="rtl">שלום!</h1>
 
     <!-- Grid for the answer choices -->
-    <div [ngStyle]="gridStyle">
+    <div [ngStyle]="gridStyle" #choicesGrid class="choices-grid">
         <div 
             *ngFor="let choice of choices; let i = index" 
             class="choice-container"
@@ -15,8 +16,9 @@
                 class="choice-button" 
                 [ngStyle]="{
                     'background-image': images[i] ? 'url(' + images[i] + ')' : 'none',
-                    'background-size': 'cover',
-                    'background-position': 'center'
+                    'background-size': 'contain',
+                    'background-position': 'center',
+                    'background-repeat': 'no-repeat'
                     }"
                 (mouseenter)="onMouseEnter(choiceButton, i)"
                 (mouseleave)="onMouseLeave(choiceButton, i)"
@@ -35,7 +37,7 @@
     > Send Answer </button>
 
      <!-- Progress Bar -->
-     <div class="progress-container" *ngIf="this.timeLimit !== -1">
+     <div #progressContainer class="progress-container" *ngIf="this.timeLimit !== -1">
         <div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }"></div>
     </div>
 

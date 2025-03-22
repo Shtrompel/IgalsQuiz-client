@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+    height: 100%;
+    margin: 0;  /* Remove default margin */
+  }
+  
+  .fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0); /* Fully transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* Let clicks pass through */
+    z-index: 9999; /* Ensure it's on top */
+  }
+  
+  .fullscreen-overlay img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Keeps the aspect ratio */
+  }

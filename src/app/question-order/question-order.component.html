@@ -1,5 +1,5 @@
 
-<div class="app-container">
+<div class="app-container" [ngStyle]="{ direction: isRtl ? 'rtl' : 'ltr' }">
 
   <h1 class="title-text" [textContent]="titleText"></h1>
 

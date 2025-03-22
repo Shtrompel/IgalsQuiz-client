@@ -39,16 +39,16 @@ export class QuestionEndComponent {
     switch (this.validityState)
     {
       case "Right":
-        this.backgroundColor = "rgb(0, 255, 0)"
+        this.backgroundColor = "#fada47"
         break;
 
       case "Partially Right":
-        this.backgroundColor = "rgb(255, 255, 0)"
+        this.backgroundColor = "#f3f0e2"
         break;
 
         case "Wrong":
       default:
-        this.backgroundColor = "rgb(255, 0, 0)"
+        this.backgroundColor = "#e86c56"
       break;
     }
 

@@ -25,10 +25,10 @@
     height: 100%;
     border-radius: 50%;
     background: conic-gradient(
-        blue -7.5% 15%,
-        green 15% 50%,
-        blue 50% 65%,
-        green 65% 100%
+        #385574 -7.5% 15%,
+        #fada47 15% 50%,
+        #385574 50% 65%,
+        #fada47 65% 100%
     );
     -webkit-mask: radial-gradient(circle, transparent 40%, black 41%);
     mask: radial-gradient(circle, transparent 40%, black 41%);

@@ -1,0 +1,11 @@
+
+
+<div class="app-container">
+    
+    <div #p5Canvas></div>
+
+     <!-- Progress Bar -->
+     <div class="progress-container" *ngIf="this.timeLimit !== -1">
+        <div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }"></div>
+    </div>
+</div>

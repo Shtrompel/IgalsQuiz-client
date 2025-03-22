@@ -1,3 +1,13 @@
 
 
-<router-outlet></router-outlet>
+<router-outlet>
+</router-outlet>
+
+<div *ngIf="showGif" class="fullscreen-overlay">
+  <img [src]="gifSrc" alt="Overlay GIF" />
+</div>
+
+<script>
+  eruda.init();
+</script>
+  

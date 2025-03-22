@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServiceWebSocketWrapper} from '../service/service.websocket.wrapper';
 import p5 from 'p5';
+import { QuestionComponent } from '../question-componnt';
 
 
 @Component({
@@ -11,6 +12,7 @@ import p5 from 'p5';
   styleUrl: './question-minigame-wires.component.css'
 })
 export class QuestionMinigameWiresComponent {
+  
   @ViewChild('p5Canvas', { static: true }) p5Canvas!: ElementRef;
   private p5!: p5;
 
@@ -47,6 +49,13 @@ export class QuestionMinigameWiresComponent {
     }
 
     this.p5 = new p5(this.sketch.bind(this), this.p5Canvas.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+
+    if (this.p5) {
+      this.p5.remove(); // Completely removes p5 instance
+    }
   }
 
   private hsv2rgb(h: number, s: number, v: number): number[] {
@@ -220,7 +229,7 @@ class Connector {
 
   display(p: p5): void {
     p.fill((this.connected ? p.color(200) : this.color));
-    p.noStroke();
+    p.stroke(127, 127);
     p.rectMode(p.CENTER);
     p.rect(this.x, this.y, 40, this.height);
   }

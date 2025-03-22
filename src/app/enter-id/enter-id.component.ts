@@ -9,7 +9,7 @@ import { io, Socket } from 'socket.io-client';
   styleUrl: './enter-id.component.css'
 })
 export class EnterIDComponent {
-  title = 'SocketTest';
+  title = '';
 
   tfIpStr : string = "";
   textError : string = "";
@@ -18,16 +18,14 @@ export class EnterIDComponent {
 
   constructor(public router: Router, private serviceSocket : ServiceWebSocketWrapper)
   {
-    //this.router.navigate(['/question-painting/']);
+    //this.router.navigate(['/question-match-pair']);
 
-    this.tfIpStr = "ws://192.168.68.55:5205";
+    this.tfIpStr = "ws://192.168.68.58:5205";
 
     if (this.testing)
     {
       this.serviceSocket.testing = true;
-      var socket: Socket;
-      socket = io(this.tfIpStr);
-      this.serviceSocket.setWebSocket(this, this.router, socket);
+      this.serviceSocket.setWebSocket(this, this.router, this.tfIpStr);
     }
   }
 
@@ -41,11 +39,7 @@ export class EnterIDComponent {
     }
     
     this.textError = "Loading...";
-
-    var socket: Socket;
-    socket = io(this.tfIpStr);
-    this.serviceSocket.setWebSocket(this, this.router, socket);
-
+    this.serviceSocket.setWebSocket(this, this.router, this.tfIpStr);
   }
 
 }

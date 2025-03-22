@@ -8,7 +8,8 @@ export  enum LoadingWindowType
   START_GAME = 0,
   NEXT_QUESTION,
   START_QUESTION,
-  FINISH_QUESTION
+  FINISH_QUESTION,
+  FINISH_GAME
 }
 
 @Component({
@@ -56,7 +57,8 @@ export class TransitionLoadingComponent {
       "Waiting for the host to start the game",
       "Waiting for the host to start the next question",
       "Waiting for the question to start",
-      "Waiting until everyone finished answering"
+      "Waiting until everyone finished answering",
+      "Waiting until everyone finished playing"
   ][type];
   }
 

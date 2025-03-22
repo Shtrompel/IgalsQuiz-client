@@ -1,27 +1,28 @@
 @import url("../app.component.css");
 
 .choice-container {
-
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-
-  display: block;
-  grid-template-columns: repeat(auto-fill, 60px);
-  flex: 0 0 calc(20% - 40px);
   overflow: auto; /* Enables scrolling when needed */
 }
 
 .choice-button {
   font-size: 1.5em;
   /* Larger text size for readability */
+  
   width: 100%;
+
   /* Make the button fill its grid cell */
   height: 100%;
+
   /* Make the button fill its grid cell */
   margin: 0;
+
   /* No margin to avoid gaps between buttons */
   padding: 0;
+
   /* No padding to ensure buttons are flush */
   border: none;
   background-color: #f0f0f0;
@@ -31,8 +32,7 @@
   line-height: 1.2em;
   /* Ensure text is vertically aligned */
   transition: background-color 0.3s ease;
-  box-sizing: border-box;
-  /* Prevent border from affecting size */
+  box-sizing: border-box; /* Prevent border from affecting size */
 }
 
 .button-text {
@@ -75,7 +75,7 @@ button:hover {
 
 .title-text {
   margin: auto;
-  width: 50%;
+  width: 90%;
   padding: 10px;
   text-align: center;
   border: 3px solid green;
@@ -85,7 +85,6 @@ button:hover {
   max-width: 80px;
   max-height: 80px;
   margin-bottom: 5px;
-  /* Space between image and text */
 }
 
 .progress-container {

@@ -1,11 +1,12 @@
 @import url("../app.component.css");
 
+
+
 .svg-circleplus { height: 16px; stroke: red; }
 
 .app-container {
     display: block;
   }
-
   
   .button-container {
     display: flex;
@@ -15,6 +16,8 @@
     padding: 10px; /* Adds some spacing around */
     flex-wrap: wrap; /* Allows items to wrap on smaller screens */
     gap: 10px; /* Adds spacing between groups */
+
+    pointer-events: auto;
   }
   
   .group {
@@ -48,6 +51,28 @@
     color: white;
   }
 
+  @media (max-width: 600px) {
+    .group button {
+      width: 40px; /* Smaller button width */
+      height: 40px; /* Smaller button height */
+      padding: 5px;
+    }
+  
+    .group svg {
+      width: 30px;  /* Reduce SVG size */
+      height: 30px;
+    }
+  
+    .group svg line {
+      stroke-width: 15; /* Reduce stroke width */
+    }
+  }
+
+  p {
+    padding: 0;
+    margin: 0; /* Also removes any margin if needed */
+  }
+
   .progress-container {
     width: 100%;
     height: 10px;
@@ -62,3 +87,13 @@
     background-color: rgb(236, 21, 21);
     transition: width 0.1s linear;
   }
+
+  * {
+    pointer-events: auto;
+    z-index: 2;
+  }
+
+  .p5-canvas {
+    z-index: 1;
+  }
+  

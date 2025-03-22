@@ -1,8 +1,9 @@
-import { Component, Input, ViewChildren, QueryList, ElementRef,  } from '@angular/core';
+import { Component, Input, ViewChildren, QueryList, ElementRef, ViewChild,  } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServiceWebSocketWrapper} from '../service/service.websocket.wrapper';
 import { LoadingWindowType } from '../transition-loading/transition-loading.component';
+import { QuestionComponent } from '../question-componnt';
 
 
 enum ButtonState {
@@ -26,6 +27,12 @@ export class QuestionChoiceComponent {
 
   @ViewChildren('choiceButton') choiceButtons!: QueryList<ElementRef>;
   @ViewChildren('sendButton') sendButton!: ElementRef;
+
+  @ViewChild('titleElement', { static: false }) titleElement!: ElementRef;
+  @ViewChild('progressContainer', { static: false }) progressContainer!: ElementRef;
+  @ViewChild('choicesGrid', { static: false }) choicesGrid!: ElementRef;
+  @ViewChild('appContainerBig', { static: false }) appContainer!: ElementRef;
+
   selectedAnswers : Array<string> = [];
   gridStyle: { [key: string]: string } = {};
 
@@ -37,6 +44,10 @@ export class QuestionChoiceComponent {
   timeStart: number = -1.;
   timeLimit: number = -1;
   progress: number = -1;
+
+  groups: { [index: number]: string } = {};
+  isRtl: boolean = true;
+  initiated: boolean = false;
 
   constructor(public router: Router, private route: ActivatedRoute, private serviceSocket : ServiceWebSocketWrapper)
   {
@@ -103,6 +114,11 @@ export class QuestionChoiceComponent {
         this.updateProgress();
     }
 
+    if (Object.values(jsonData).includes("isRtl"))
+    {
+      this.isRtl = jsonData.isRtl;
+    }
+
     this.isMultiChoice = false;
     if (Object.values(jsonData).includes("isMultiChoice"))
     {
@@ -110,21 +126,67 @@ export class QuestionChoiceComponent {
     }
     else
     {
+      var counter : { [key: number]: number } = {};
+
       let c : number = 0;
       for (var choice of  jsonData.choices)
       {
         if (choice.isRight)
-          c += 1;
+        {
+          if (choice.hasOwnProperty("group") && choice.group != -1)
+            counter[choice.group] += 1;
+          else
+            c += 1;
+        }
       }
-      this.isMultiChoice = (c > 1) ? true : false;
+
+      if (Object.keys(counter).length > 0)
+      {
+        let maxValue = Math.max(...Object.values(counter))
+        this.isMultiChoice = (maxValue > 1) ? true : false;
+      }
+      else
+        this.isMultiChoice = (c > 1) ? true : false;
     }
 
     this.updateQuestion(jsonData);
   }
 
+  adjustGridHeight(): void {
+    const viewportHeight = window.innerHeight;
+
+
+    // Calculate the height of other elements
+    const titleHeight = this.titleElement?.nativeElement?.offsetHeight || 0;
+    const sendButtonHeight = this.sendButton?.nativeElement?.offsetHeight || 0;
+    const progressContainerHeight = this.progressContainer?.nativeElement?.offsetHeight || 0;
+    const x = this.choicesGrid?.nativeElement?.offsetHeight || 0;
+    const y = this.appContainer?.nativeElement?.offsetHeight || 0;
+
+    console.log(`${viewportHeight} ${titleHeight} ${sendButtonHeight} ${progressContainerHeight} ${x}`);
+
+    const otherElementsHeight = titleHeight + sendButtonHeight + progressContainerHeight;
+
+    // Calculate the available height for the grid
+    var availableHeight = y - otherElementsHeight;
+    availableHeight *= 0.7;
+
+    // Set the grid height dynamically
+    this.gridStyle['height'] = `${availableHeight}px`;
+  }
+
   ngAfterViewInit()
   {
     this.setButtonColors();
+  }
+
+  ngAfterViewChecked()
+  {
+    if (this.initiated)
+    {
+      this.adjustGridHeight();
+      this.initiated = true;
+    }
   }
 
 
@@ -133,11 +195,13 @@ export class QuestionChoiceComponent {
     this.titleText = jsonData.description;
     this.choices = [];
     this.maxChoices = 0;
+    this.groups = {};
+
+    console.log(jsonData);
 
     for (var choice of  jsonData.choices)
     {
-      if (choice.isRight)
-        this.maxChoices++;
+      this.maxChoices = jsonData.maxChoices;
       this.choices.push(choice.text);
       this.colors.push(choice.color);
       if (choice.hasOwnProperty("image"))
@@ -158,12 +222,12 @@ export class QuestionChoiceComponent {
     const rows = Math.ceil(numAnswers / this.cols);
 
     this.gridStyle = {
-      'overflow': 'hide',
+      'overflow': 'hidden', // Corrected
       'display': 'grid',
-      'grid-template-columns': `repeat(${this.cols}, 1fr)`, // Dynamic columns
-      'grid-auto-rows': '1fr',                         // Equal row heights
+      'grid-template-columns': `repeat(${this.cols}, 1fr)`,
+      'grid-auto-rows': '1fr',
       'width': '100%',
-      'height': '50vh',
+      'height': '40vh',
     };
   }
 
@@ -289,17 +353,18 @@ export class QuestionChoiceComponent {
       button.style.filter = '';
   }
 
-  updateProgress() {
-    if (this.timeLimit === -1) return;
+    updateProgress() {
+      if (this.timeLimit === -1) return;
 
-    const elapsed = performance.now() - this.timeStart;
-    this.progress = Math.min(100, (elapsed / this.timeLimit) * 100);
+      const elapsed = performance.now() - this.timeStart;
+      this.progress = Math.min(100, (elapsed / this.timeLimit) * 100);
 
-    if (this.progress < 100) {
-        requestAnimationFrame(() => this.updateProgress());
-    }
-}
+      if (this.progress < 100) {
+          requestAnimationFrame(() => this.updateProgress());
+      }
+  }
   
+
 }
 
 

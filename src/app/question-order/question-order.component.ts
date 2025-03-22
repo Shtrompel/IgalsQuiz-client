@@ -5,6 +5,7 @@ import { ServiceWebSocketWrapper} from '../service/service.websocket.wrapper';
 import { LoadingWindowType } from '../transition-loading/transition-loading.component';
 
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { QuestionComponent } from '../question-componnt';
 
 
 @Component({
@@ -14,6 +15,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
   styleUrl: './question-order.component.css'
 })
 export class QuestionOrderComponent {
+  
   timeLimit: number = 0;
   progress: number = 0;
   titleText: string = "";
@@ -32,6 +34,7 @@ export class QuestionOrderComponent {
   timeStart: number = 0;
   descriptionText: any;
   maxChoices: any = 0;
+  isRtl: boolean = false;
 
   constructor(public router: Router, private route: ActivatedRoute, private serviceSocket : ServiceWebSocketWrapper)
   {
@@ -80,8 +83,11 @@ export class QuestionOrderComponent {
       }
       else
         this.images.push(null);
+    }
 
-      
+    if (Object.values(jsonData).includes("isRtl"))
+    {
+      this.isRtl = jsonData.isRtl;
     }
 
     console.log(this.colors);

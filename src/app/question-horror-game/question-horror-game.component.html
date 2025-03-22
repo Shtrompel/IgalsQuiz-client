@@ -1,0 +1,32 @@
+
+<div class="app-container">
+
+    <canvas #gridCanvas width="400" height="640"></canvas>
+
+    <div class="button-game-controlls">
+        <button  #buttonRotate (click)="onButtonRotatePressed()"> 
+            <img [src]="buttonsImagesCurrent['turn']" alt="Button Image">
+        </button>
+
+        <button  #buttonLeft  (click)="onButtonLeftPressed()"> 
+            <img [src]="buttonsImagesCurrent['left']" alt="Button Image">
+        </button>
+        <button  #buttonForward (click)="onButtonForwardPressed()"> 
+            <img [src]="buttonsImagesCurrent['forward']" alt="Button Image">
+        </button>
+        <button  #buttonRight (click)="onButtonRightPressed()"> 
+            <img [src]="buttonsImagesCurrent['right']" alt="Button Image">
+        </button>
+        <button  #buttonShoot (click)="onButtonShootPressed()"> 
+            <img [src]="buttonsImagesCurrent['shoot']" alt="Button Image">
+        </button>
+    </div>
+
+    <span>Shots Left {{this.context?.bullets}}</span>
+
+     <!-- Progress Bar -->
+     <div class="progress-container" *ngIf="this.timeLimit !== -1">
+        <div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }"></div>
+    </div>
+    
+</div>

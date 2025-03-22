@@ -3,13 +3,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ServiceWebSocketWrapper} from '../service/service.websocket.wrapper';
 import p5 from 'p5';
 import { LoadingWindowType } from '../transition-loading/transition-loading.component';
+import { QuestionComponent } from '../question-componnt';
 
 @Component({
   selector: 'app-question-painting',
   templateUrl: './question-painting.component.html',
   styleUrl: './question-painting.component.css'
 })
-export class QuestionPaintingComponent {
+export class QuestionPaintingComponent extends QuestionComponent {
+
   progress: any;
 
   @ViewChild('p5Canvas', { static: true }) p5Canvas!: ElementRef;
@@ -42,6 +44,7 @@ export class QuestionPaintingComponent {
 
   constructor(public router: Router, private route: ActivatedRoute, private serviceSocket : ServiceWebSocketWrapper)
   {
+    super();
   }
 
   ngOnInit(): void {
@@ -59,6 +62,7 @@ export class QuestionPaintingComponent {
 
     const jsonData = JSON.parse(data);
     this.timeLimit = jsonData.timeLimit;
+    this.timeStart = performance.now();
     this.colors = [];
 
     for (let color of jsonData.paintingColors)
@@ -71,15 +75,30 @@ export class QuestionPaintingComponent {
     this.canvasWidth = jsonData.paintingW;
     this.canvasHeight = jsonData.paintingH;
 
-
-
     this.updateProgress();
 
+    if (this.p5)
+    {
+      this.p5.remove();
+    }
+    
     this.p5 = new p5(this.sketch.bind(this), this.p5Canvas.nativeElement);
+    this.p5Canvas.nativeElement.style.pointerEvents = 'none';
     this.changePaintbrushColor(this.colors[0]);
   }
 
+  ngOnDestroy(): void {
+
+    this.mouseOut();
+
+    if (this.p5) {
+      this.p5.remove(); // Completely removes p5 instance
+    }
+  }
+
   private sketch(p: p5): void {
+
+    let timeStart = 0;
 
     p.setup = () => {
       var canvas = p.createCanvas(Math.min(p.windowWidth, this.canvasWidth), Math.min(p.windowHeight, this.canvasHeight));
@@ -88,12 +107,21 @@ export class QuestionPaintingComponent {
       canvas.mouseOver(this.mouseOver.bind(this));
       canvas.mouseOut(this.mouseOut.bind(this));
       this.updateBrushSize(this.brushSizeFactor);
+
+      timeStart = p.millis();
     };
 
     p.draw = () => {
 
       if (!p.focused)
         return;
+
+      if (p.millis() - timeStart >= this.timeLimit)
+      {
+        this.sendAnswer();
+        return;
+        
+      }
 
       this.touchesCurrent = new Map<number, any>();
 
@@ -116,6 +144,7 @@ export class QuestionPaintingComponent {
       });
 
       this.touchesLast = this.touchesCurrent;
+      
     }
 
     p.mousePressed = (e: any) => {
@@ -142,7 +171,7 @@ export class QuestionPaintingComponent {
     };
 
     p.touchEnded = (e: any) => {
-      //e.stopImmediatePropagation();
+      e.stopImmediatePropagation();
     };
 
     p.touchStarted = (e: any) => {
@@ -151,7 +180,8 @@ export class QuestionPaintingComponent {
       let inCanvas = p.mouseX >= 0 && p.mouseX <= p.width && p.mouseY >= 0 && p.mouseY <= p.height;
       if (inCanvas) {
         p.circle(p.mouseX, p.mouseY, this.brushSize);
-        //e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
       }
       return true; // Ensure UI elements outside the canvas still work
     };
@@ -202,10 +232,12 @@ export class QuestionPaintingComponent {
   }
 
   onPaintButtonClicked($event: Event, color: string) {
+    console.log("onPaintButtonClicked");
     this.changePaintbrushColor(color);
   }
 
   onEraserButtonClicked($event: MouseEvent) {
+    console.log("onEraserButtonClicked");
     this.p5.fill(
       this.backgroundColor[0],
       this.backgroundColor[1],
@@ -246,11 +278,13 @@ export class QuestionPaintingComponent {
   }
 
   onMouseMinusClicked($event: MouseEvent) {
+    console.log("onMouseMinusClicked");
     if (this.brushSizeFactor > 0)
       this.updateBrushSize(this.brushSizeFactor - 1);
   }
 
   onMousePlusClicked($event: MouseEvent) {
+    console.log("onMousePlusClicked");
     if (this.brushSizeFactor < 6)
       this.updateBrushSize(this.brushSizeFactor + 1);
   }
@@ -273,5 +307,9 @@ export class QuestionPaintingComponent {
     if (this.progress < 100) {
         requestAnimationFrame(() => this.updateProgress());
     }
+  }
+
+  override onForceEnd(): void {
+    
   }
 }

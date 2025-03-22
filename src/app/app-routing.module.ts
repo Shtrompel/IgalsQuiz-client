@@ -10,6 +10,9 @@ import { GameEndComponent } from './game-end/game-end.component';
 import { QuestionMinigameWiresComponent } from './question-minigame-wires/question-minigame-wires.component';
 import { QuestionOrderComponent } from './question-order/question-order.component';
 import { QuestionPaintingComponent } from './question-painting/question-painting.component';
+import { QuestionHorrorGameComponent } from './question-horror-game/question-horror-game.component';
+import { QuestionMinigameBallsComponent } from './question-minigame-balls/question-minigame-balls.component';
+import { QuestionMatchPairComponent } from './question-match-pair/question-match-pair.component';
 
 const routes: Routes = [
 
@@ -20,12 +23,16 @@ const routes: Routes = [
   { path: 'question-choice/:data', component: QuestionChoiceComponent },
   { path: 'question-order', component: QuestionOrderComponent },
   { path: 'question-painting', component: QuestionPaintingComponent },
+  { path: 'question-horror-game', component: QuestionHorrorGameComponent },
+  { path: 'question-match-pair', component: QuestionMatchPairComponent },
 
   { path: 'transition-loading/:type', component: TransitionLoadingComponent },
   { path: 'transition-loading/:type/:time', component: TransitionLoadingComponent },
   { path: 'question-end/:data', component: QuestionEndComponent },
   { path: 'game-end/:data', component: GameEndComponent },
   { path: 'question-minigame-wires', component: QuestionMinigameWiresComponent },
+  { path: 'question-minigame-balls', component: QuestionMinigameBallsComponent },
+
   { path: '', redirectTo: '/enter-id', pathMatch: 'full' }
 ];
 

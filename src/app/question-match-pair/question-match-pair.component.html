@@ -1,0 +1,16 @@
+<div class="app-container">
+
+    <h1 class="title-text" [textContent]="descriptionText" dir="rtl">שלום!</h1>
+
+    <div #p5Canvas></div>
+
+    <button
+    #sendButton 
+    (click)="sendAnswer()"
+    > Send Answer </button>
+
+    <!-- Progress Bar -->
+    <div class="progress-container" *ngIf="this.timeLimit !== -1">
+        <div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }"></div>
+    </div>
+</div>
